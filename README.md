@@ -4,14 +4,14 @@ Maneira simples de visualizar arquivos PDF de um projeto em Autocad.
 
 ## Começando
 
-Aplicação desktop desenvolvida em JavaScript. Utilizando o framework [Electron](https://github.com/electron/electron). Electron é um framework que permite que você escreve uma aplicação multiplataforma usando JavaScript, HTML e CSS. É baseada em [Node.js](https://nodejs.org) e [Chromium](http://www.chromium.org/). 
+Aplicação desktop desenvolvida em JavaScript, utilizando o framework [Electron](https://github.com/electron/electron). Electron é um framework que permite que você escreva uma aplicação multiplataforma usando JavaScript, HTML e CSS. É baseada em [Node.js](https://nodejs.org) e [Chromium](http://www.chromium.org/). 
 
 Baixe todas as dependências do projeto
 ``` js
 $ npm install
 ```
 
-Executar aplicação
+Execute a aplicação
 ``` js
 $ npm start 
 ```
