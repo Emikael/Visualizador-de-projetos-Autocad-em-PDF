@@ -11,13 +11,46 @@ Baixe todas as dependências do projeto
 $ npm install
 ```
 
-Execute
-
+Executar aplicação
 ``` js
 $ npm start 
 ```
 
-## Requirements
+## Criando executavel da aplicação
+
+Diretório
+    * Diretório da aplicação
+    
+Plataforma
+    * all
+    * darwin 
+    * linux
+    * win32
+     
+Arquitetura
+    * all
+    * ia32
+    * x64
+
+``` js
+$ electron-packager <diretorio> <nomeDaAplicação> --platform=<plataforma> --arch=<arquitetura> [optional flags...]
+```
+
+Exemplos
+``` js
+$ //Aplicação Windows
+$ electron-packager ~/home/emikael/appExemplo  Visualizador-autocad --platform=win32 --arch=all
+```
+``` js
+$ //Aplicação MacOS
+$ electron-packager ~/home/emikael/appExemplo Visualizador-autocad --platform=darwin --arch=all
+```
+``` js
+$ //Aplicação Linux
+$ electron-packager ~/home/emikael/appExemplo Visualizador-autocad --platform=linux --arch=all
+```
+
+## Requisitos
 
 * AngularJS (http://angularjs.org/)
 * Electron (https://github.com/electron/electron)
@@ -25,7 +58,7 @@ $ npm start
 * angular-pdfview (https://github.com/Emikael/angular-pdfviewer)
 * NodeJS (https://nodejs.org)
 
-## License
+## Licença
 
 MIT License
 
