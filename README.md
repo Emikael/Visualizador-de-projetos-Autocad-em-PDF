@@ -18,19 +18,19 @@ $ npm start
 
 ## Criando executavel da aplicação
 
-Diretório
-    * Diretório da aplicação
+##### Diretório
+ * Diretório da aplicação
     
-Plataforma
-    * all
-    * darwin 
-    * linux
-    * win32
+##### Plataforma
+ * all
+ * darwin 
+ * linux
+ * win32
      
-Arquitetura
-    * all
-    * ia32
-    * x64
+##### Arquitetura
+ * all
+ * ia32
+ * x64
 
 ``` js
 $ electron-packager <diretorio> <nomeDaAplicação> --platform=<plataforma> --arch=<arquitetura> [optional flags...]
