@@ -1,0 +1,222 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.fabSpeedDialdemoBasicUsage .text-capitalize {
+    text-transform: capitalize;
+}
+
+.fabSpeedDialdemoBasicUsage .md-fab:hover,
+.fabSpeedDialdemoBasicUsage .md-fab.md-focused {
+    background-color: #000 !important;
+}
+
+.fabSpeedDialdemoBasicUsage p.note {
+    font-size: 1.2rem;
+}
+
+.content {
+    height: 100% !important;
+}
+
+.align-toolbar-center {
+    text-align: center;
+}
+
+.spacer {
+    padding: 10px;
+}
+
+.spacer-toolbar {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.title-viewer {
+    border: solid #000 1px;
+}
+
+.fixed-buttom {
+    position: fixed !important;
+    padding-right: 20px;
+}
+
+.scroll-sidenav {
+    max-height: 632px !important;
+}
+
+.selected-item ~ .item .user,
+.item:first-child .user {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.selected-item ~ .item .user.selected,
+.item:first-child .user.selected {
+    margin-top: 0;
+}
+
+.item:last-child .user {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.item .tile .folded {
+    cursor: pointer;
+}
+
+.item .user {
+    background-color: white;
+    transition: all 500ms;
+}
+
+.item .user h3,
+.item .user p {
+    transition: all 500ms;
+}
+
+.item .user p {
+    opacity: 1;
+    height: inherit;
+}
+
+.item .user p.ng-hide {
+    opacity: 0;
+    height: 0;
+}
+
+.item .user.selected {
+    margin: 30px -15px;
+    border-radius: 2px;
+}
+
+.item .user.selected .expanded {
+    visibility: visible;
+}
+
+.item .user.selected .expanded,
+.item .user.selected .expanded > * {
+    max-height: 700px;
+    opacity: 1;
+}
+
+.item .user.selected .expanded .md-label {
+    border: hidden;
+}
+
+.item .user.selected h3 {
+    font-size: 1.8em;
+}
+
+.item .user .expanded {
+    visibility: hidden;
+}
+
+.item .user .expanded,
+.item .user .expanded > * {
+    max-height: 0;
+    opacity: 0;
+    transition: all 500ms;
+}
+
+.item .user .expanded .split {
+    padding: 10px;
+}
+
+.item .user .face {
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    width: 48px;
+    height: 48px;
+    margin: 16px;
+}
+
+md-content.md-default-theme {
+    background-color: #eee;
+}
+
+md-toolbar .md-button.md-default-theme {
+    border-radius: 99%;
+}
+
+md-toolbar:not(.md-hue-1),
+.md-fab {
+    fill: #fff;
+}
+
+.md-errors-spacer {
+    display: none;
+}
+
+.submenu {
+    margin-left: 10px;
+}
+
+.ajust-size {
+    width: 300px;
+    height: 520px;
+    overflow-y: auto;
+}
+
+.tabsdemoDynamicHeight md-content {
+    background-color: transparent !important;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+    background: white;
+}
+
+.tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0;
+}
+
+.adjust-height {
+    height: 650px !important;
+}
+
+.adjust-height-tabs {
+    width: 100% !important;
+    min-height: 430px !important;
+}
+
+.align-button-right {
+    float: right;
+}
+
+.align-button-center {
+    float: center;
+}
+
+.adjust-select {
+    min-width: 500px;
+}
+
+.form-wrapper {
+    padding: 16px;
+}
+
+.form-wrapper .form-title {
+    font-size: 21px;
+    padding: 8px 0;
+}
+
+.selectdemoSelectHeader {
+    max-width: 100% !important;
+}
+
+.scroll-grups {
+    max-height: 300px !important;
+    overflow-y: auto;
+}
+
+.test {
+    margin-right: 40%;
+    margin-top: auto;
+}

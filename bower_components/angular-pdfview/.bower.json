@@ -1,0 +1,23 @@
+{
+  "name": "angular-pdfview",
+  "description": "AngularJS PDF viewer directive using pdf.js",
+  "main": [
+    "angular-pdfview.js"
+  ],
+  "authors": [
+    "Emikael Silveira <emikael.silveira@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://github.com/Emikael/angular-pdfviewer",
+  "_release": "76646263ed",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "76646263edd572d0c71e419e5e4a8f9ffb28a57d"
+  },
+  "_source": "https://github.com/Emikael/angular-pdfviewer.git",
+  "_target": "*",
+  "_originalSource": "angular-pdfview",
+  "_direct": true
+}

@@ -1,0 +1,142 @@
+<md-dialog aria-label="upload-file" class="layout-column flex" ng-cloak>
+    <form class="flex">
+        <md-toolbar class="md-whiteframe-z2 layout-row">
+            <div class="md-toolbar-tools">
+                <h2>Abrir projeto</h2>
+                <span class="flex"></span>
+                <md-button aria-label="close" class="md-icon-button" ng-click="closeDialog()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content class="adjust-height">
+            <div class="md-dialog-content flex">
+                <md-tabs md-dynamic-height md-border-bottom class="adjust-height-tabs" md-selected="selectedIndex">
+                    <md-tab label="Importar Arquivos">
+                        <md-content class="md-padding">
+                            <h2 class="md-display-1">Selecione os arquivos que você deseja importar</h2>
+                            <div flow-init flow-name="uploader.flow" flow-files-submitted="processFiles($flow, $event)" class="flex">
+                                <md-button class="md-raised md-warn" flow-btn type="file" md-autofocus>Carregar arquivos</md-button>
+                                <md-table-container>
+                                    <table md-table md-progress="promise">
+                                        <thead md-head md-order="query.order" md-on-reorder="getFiles">
+                                            <tr md-row>
+                                                <th md-column md-order-by="name"><span>Arquivo</span></th>
+                                                <th md-column md-numeric><span>Tamanho</span></th>
+                                                <th md-column md-numeric><span>Remover</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr md-row ng-repeat="file in importFiles | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit track by $index">
+                                                <td md-cell>{{ file.name }}</td>
+                                                <td md-cell>{{ formatSizeUnits(file.size) }}</td>
+                                                <td md-cell>
+                                                    <md-button aria-label="delete" class="md-fab md-mini md-warn" ng-click="deleteFile(file)">
+                                                        <ng-md-icon icon="delete"></ng-md-icon>
+                                                    </md-button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </md-table-container>
+                                <md-table-pagination md-limit="query.limit" md-limit-options="[5,10,15]" md-page="query.page" md-total="{{ totalFiles }}" md-on-paginate="getFiles" md-page-select="true"></md-table-pagination>
+                            </div>
+                            <md-button class="md-raised md-primary align-button-right" aria-label="Prosseguir" ng-disabled="totalFiles <= 0" ng-click="nextTab()">Prosseguir</md-button>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Arquivo Principal" ng-disabled="disableTab2">
+                        <md-content class="md-padding">
+                            <h2 class="md-display-1">Selecione o arquivo principal do seu projeto</h2>
+                            <div layout="column" layout-align="center center">
+                                <md-input-container>
+                                    <label>Arquivo Principal</label>
+                                    <md-select multiple placeholder="Arquivo Principal" ng-model="fileAux" class="adjust-select">
+                                        <md-option ng-value="{uniqueIdentifier: file.uniqueIdentifier, name: file.name, src: file.path}" ng-repeat="file in importFiles">
+                                            {{ file.name }}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <div class="md-padding flex test" layout="column" layout-align="left left">
+                                    <ul>
+                                        <li ng-repeat="mainFile in fileAux">
+                                            {{ mainFile.name }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <md-button class="md-raised md-primary align-button-right" aria-label="Prosseguir" ng-click="onMainFileSelected()" ng-disabled="fileAux === undefined">Prosseguir</md-button>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Agrupar Arquivos" ng-disabled="disableTab3">
+                        <md-content class="md-padding">
+                            <h2 class="md-display-1">Agrupe o restante dos arquivos</h2>
+                            <div class="layout-row">
+                                <div class="form-wrapper md-whiteframe-1dp flex-50 scroll-grups">
+                                    <form name="createGroup">
+                                        <div class="form-title">Criar grupo</div>
+                                        <div layout="column" class="flex md-padding">
+                                            <md-input-container class="md-block">
+                                                <label>Nome do Grupo</label>
+                                                <input type="text" name="groupName" ng-model="group.title" required>
+                                                <div class="errors" ng-messages="createGroup.groupName.$error" ng-if="group.title === undefined">
+                                                    <div ng-message="required">O nome do grupo é obrigatório.</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="selectdemoSelectHeader">
+                                                <label>Arquivos</label>
+                                                <md-select ng-model="group.subFiles" name="groupFile" required multiple layout="column" class="flex">
+                                                    <md-optgroup label="Arquivos Importados">
+                                                        <md-option ng-value="{uniqueIdentifier: file.uniqueIdentifier, name: file.name, src: file.path}" ng-repeat="file in importFiles" class="flex">
+                                                            {{ file.name }} <br/>
+                                                        </md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                                <div class="errors" ng-messages="createGroup.groupFile.$error" ng-if="groupFile.$dirty">
+                                                    <div ng-message="required">Selecione pelo menos um arquivo.</div>
+                                                </div>
+                                            </md-input-container>    
+                                        </div>
+                                        <md-button aria-label="Adicionar Grupo" class="md-raised md-primary" ng-click="addGroup()" ng-disabled="group.title === undefined || group.subFiles === undefined"> Adicionar Grupo </md-button>
+                                    </form>
+                                </div>
+                                <span class="flex-5"></span>
+                                <div class="form-wrapper md-whiteframe-1dp flex-50 scroll-grups">
+                                    <form name="groups">
+                                         <div class="form-title">Grupos</div>
+                                         <div ng-repeat="file in filesAux">
+                                            <md-list-item ng-click="doActionOpenMenu(file)">
+                                                <p>{{file.title}}</p>
+
+                                                <div ng-show="file.subFiles">
+                                                    <md-button aria-label="open" class="md-icon-button" ng-show="!file.menuOpen">
+                                                        <ng-md-icon icon="keyboard_arrow_right"></ng-md-icon>
+                                                    </md-button>
+                                                    <md-button aria-label="close" class="md-icon-button" ng-show="file.menuOpen">
+                                                        <ng-md-icon icon="keyboard_arrow_down"></ng-md-icon>
+                                                    </md-button>
+                                                </div>
+                                            </md-list-item>
+
+                                            <div ng-show="file.menuOpen" ng-repeat="subFile in file.subFiles">
+                                                <md-list-item aria-label="{{ subFile.name }}" class="submenu">
+                                                    <p>{{ subFile.name }}</p>
+                                                </md-list-item>
+                                            </div>
+                                            <md-divider></md-divider>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="finalizar">
+                                <md-button class="md-raised md-primary align-button-right" aria-label="Finalizar" ng-click="onFinallyImportFiles($event)" ng-disabled="filesAux.length <= 0">Finalizar</md-button>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions class="layout-row flex">
+            <md-button ng-click="closeDialog()" class="md-primary" aria-label="Cancelar">Cancelar</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,1 @@
+angular.module("app", ['ngMaterial', 'ngMdIcons', 'angularPDFView', 'flow', 'md.data.table', 'ngMessages']);

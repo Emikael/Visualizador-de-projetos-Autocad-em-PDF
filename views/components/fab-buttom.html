@@ -1,0 +1,55 @@
+<md-fab-speed-dial md-open="isOpen" md-direction="up" class="md-scale md-fab md-fab-bottom-right fixed-buttom" ng-mouseenter="isOpen=true" ng-mouseleave="isOpen=false">
+
+    <md-fab-trigger>
+        <md-button aria-label="Menu" class="md-fab md-warn">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Menu
+            </md-tooltip>
+            <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+    </md-fab-trigger>
+
+    <md-fab-actions>
+        <md-button aria-label="openProject" class="md-fab md-raised md-mini" ng-click="openProject($event)">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Abrir Projeto
+            </md-tooltip>
+            <ng-md-icon icon="folder_open"></ng-md-icon>
+        </md-button>
+
+        <md-button aria-label="Remover" class="md-fab md-raised md-mini" ng-if="hasProject" ng-click="removeProject($event)">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Remover Projeto
+            </md-tooltip>
+            <ng-md-icon icon="delete_sweep"></ng-md-icon>
+        </md-button>
+        
+        <md-button aria-label="ajuste" class="md-fab md-raised md-mini" ng-if="hasFile" ng-click="scaleFit()">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Ajustar
+            </md-tooltip>
+            <ng-md-icon icon="fullscreen"></ng-md-icon>
+        </md-button>
+        
+        <md-button aria-label="zoomIn" class="md-fab md-raised md-mini" ng-if="hasFile" ng-click="zoomIn()">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Mais Zoom
+            </md-tooltip>
+            <ng-md-icon icon="zoom_in"></ng-md-icon>
+        </md-button>
+        
+        <md-button aria-label="zoomOut" class="md-fab md-raised md-mini" ng-if="hasFile" ng-click="zoomOut()">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Menos Zoom
+            </md-tooltip>
+            <ng-md-icon icon="zoom_out"></ng-md-icon>
+        </md-button>
+        
+        <md-button aria-label="rotation" class="md-fab md-raised md-mini" ng-if="hasFile" ng-click="onRotation()">
+            <md-tooltip md-visible="tooltipVisible" md-delay="100" md-autohide="true" md-direction="left">
+                Girar 90º
+            </md-tooltip>
+            <ng-md-icon icon="autorenew"></ng-md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>

@@ -1,0 +1,197 @@
+<<<<<<< HEAD
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="content-language" content="pt-br" />
+    <title>Visualizador de Projetos AutoCad</title>
+
+    <!-- Angular Material -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Angular Material Data Table -->
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css">
+    
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-controller="MainCtrl as main">
+    <md-progress-linear md-mode="indeterminate" ng-if="hasProgress"></md-progress-linear>
+    <md-content class="demo-content content flex" layout-padding ng-cloak>
+        <md-toolbar class="md-primary md-whiteframe-z3" ng-show="!showSearch">
+            <div class="md-toolbar-tools">
+                <h1>
+                    <span>Visualizador de Projetos AutoCad</span>
+                </h1>
+                <span class="flex"></span>
+                <md-button aria-label="Search" ng-click="showSearch = !showSearch" class="md-icon-button md-primary md-button md-ink-ripple">
+                    <ng-md-icon icon="search"></ng-md-icon>
+                </md-button>
+
+                <!--<md-menu md-position-mode="target-right target">-->
+                    <md-button class="md-icon-button" aria-label="exit" ng-click="$mdOpenMenu($event)">
+                        <ng-md-icon icon="more_vert"></ng-md-icon>
+                    </md-button>
+                    <!--<md-menu-content width="3">
+                        <md-subheader>Opções</md-subheader>
+                        <md-menu-item>
+                            <md-button layout-fill md-ink-ripple ng-click="exit()">
+                                <ng-md-icon icon="exit_to_app"></ng-md-icon>
+                                <p>Sair</p>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>-->
+            </div>
+        </md-toolbar>
+        <md-toolbar class="md-hue-1 md-whiteframe-z2" ng-show="showSearch">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="showSearch = !showSearch" aria-label="Back" class="md-icon-button md-primary md-button md-ink-ripple">
+                    <ng-md-icon icon="arrow_back"></ng-md-icon>
+                </md-button>
+                <md-input-container md-theme="input" class="flex" ng-focus="showSearch" autofocus>
+                    <label>&nbsp;</label>
+                    <input ng-model="searchText" placeholder="Pesquise um arquivo" md-autofocus>
+                </md-input-container>
+                <md-button aria-label="Search" ng-click="showSearch = !showSearch" class="md-icon-button md-primary md-button md-ink-ripple">
+                    <ng-md-icon icon="search"></ng-md-icon>
+                </md-button>
+            </div>
+
+        </md-toolbar>
+        
+        <div class="flex layout-row layout-align-center" style="padding-top: 250px !important;" ng-show="!hasProject">
+            <md-button class="md-raised md-primary" aria-label="Abrir Projeto" ng-click="openProject($event)"> Abrir um novo projeto</md-button>
+        </div>
+        
+        <section ng-show="hasProject">
+            <div class="flex layout-row">
+                <md-sidenav class="md-sidenav-left md-whiteframe-z2 flex-20 layout-row scroll-sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+                    <div class="flex ui-view">
+                        <md-toolbar>
+                            <h2 class="md-toolbar-tools layout-align-center">Seleção</h2>
+                        </md-toolbar>
+
+                        <md-list class="flex">
+                            <div ng-show="hasMainFile">
+                                <md-subheader class="md-no-sticky">Arquivo principal</md-subheader>
+                                <div>
+                                    <div ng-repeat="file in fileMain">
+                                        <md-list-item class="flex layout-row blue-200" ng-click="doActionAlterFile(file)">
+                                            <md-buttom class="md-icon-button">
+                                                <p>{{ file.name }}</p>
+                                            </md-buttom>
+                                        </md-list-item>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div ng-show="hasOthersFiles">
+                                <md-subheader class="md-no-sticky">Demais arquivos</md-subheader>
+                                <div ng-repeat="file in files | filter:searchText">
+                                    <md-list-item ng-click="doActionOpenMenu(file)">
+                                        <p>{{file.title}}</p>
+
+                                        <div ng-show="file.subFiles">
+                                            <md-button aria-label="open" class="md-icon-button" ng-show="!file.menuOpen">
+                                                <ng-md-icon icon="keyboard_arrow_right"></ng-md-icon>
+                                            </md-button>
+                                            <md-button aria-label="close" class="md-icon-button" ng-show="file.menuOpen">
+                                                <ng-md-icon icon="keyboard_arrow_down"></ng-md-icon>
+                                            </md-button>
+                                        </div>
+                                    </md-list-item>
+
+                                    <div ng-show="file.menuOpen" ng-repeat="subFile in file.subFiles">
+                                        <md-list-item aria-label="{{ subFile.name }}" ng-click="doActionAlterFile(subFile)" class="submenu">
+                                            <p>{{ subFile.name }}</p>
+                                        </md-list-item>
+                                    </div>
+                                    <md-divider></md-divider>
+                                </div>
+                            </div>
+                        </md-list>
+                    </div>
+                </md-sidenav>
+
+                <md-card class="page-content md-whiteframe-z2 flex layout-row">
+
+                    <div class="layout-row flex">
+                        <div class="flex">
+                            <div class="md-whiteframe-z2">
+                                <h1 class="md-toolbar-tools layout-align-center">{{ titleViewer }}</h1>
+                            </div>
+                            <div class="flex layout-padding layout-row">
+                                <div class="flex ajust-size">
+                                    <pdfviewer src="{{ pdfFile }}" id="viewer" ng-dblclick="zoomIn()"></pdfviewer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </md-card>
+            </div>
+        </section>
+        <section>
+                            <div class="md-whiteframe-z3" ng-include="'views/components/fab-buttom.html'"></div>
+                        </section>
+    </md-content>
+    
+    <!-- Library AngularJS -->
+    <script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-material/angular-material.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js" type="text/javascript"></script>
+
+    <!-- Library angular-pdfview -->
+    <script src="bower_components/angular-pdfview/lib/pdf.js"></script>
+    <script src="bower_components/angular-pdfview/angular-pdfview.js"></script>
+    
+    <!-- Library ng-flow -->
+    <script src="bower_components/flow.js/dist/flow.min.js" type="text/javascript"></script>
+    <script src="bower_components/ng-flow/dist/ng-flow-standalone.min.js" type="text/javascript"></script>
+    
+    <!-- Angular Material Data Table -->
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js" type="text/javascript"></script>
+    
+    <!-- Main -->
+    <script src="js/main.js" type="text/javascript"></script>
+
+    <!-- Configuration -->
+    <script src="js/configuration/config.js" type="text/javascript"></script>
+
+    <!-- Controllers -->
+    <script src="js/controllers/mainController.js" type="text/javascript"></script>
+    <script src="js/controllers/uploadController.js" type="text/javascript"></script>
+    
+</body>
+
+</html>
+=======
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>
+>>>>>>> 9c73a9db22537a1d7513f67ec1aef2c5281a572e
