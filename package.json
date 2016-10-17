@@ -1,16 +1,16 @@
 {
-  "name": "visualizador-projetos-autocad",
+  "name": "visualizador-projetos-autocad-em-PDF",
   "version": "1.0.0",
-<<<<<<< HEAD
   "jshintConfig": {
-    "esnext": true
+    "esnext": true,
+    "es6": true
   },
   "description": "Uma maneira simples de visualizar seu projeto autocad.",
   "main": "start.js",
   "scripts": {
     "start": "electron start.js"
   },
-  "author": "Emikael Silveira",
+  "author": "Emikael Silveira <emikael.silveira@gmail.com>",
   "license": "MIT",
   "engines": {
     "node": ">= 0.12.4",
@@ -19,24 +19,5 @@
   "devDependencies": {
     "electron-packager": "^7.0.0",
     "electron-prebuilt": "^0.37.0"
-=======
-  "description": "A minimal Electron application",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "^1.4.1"
->>>>>>> 9c73a9db22537a1d7513f67ec1aef2c5281a572e
   }
 }

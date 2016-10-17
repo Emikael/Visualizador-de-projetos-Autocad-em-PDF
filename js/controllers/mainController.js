@@ -1,5 +1,5 @@
 angular.module("app").controller('MainCtrl', ['$scope', 'angularPDFViewerService', '$mdDialog', '$timeout',
-    function($scope, pdf, $mdDialog, $timeout) {
+    function ($scope, pdf, $mdDialog, $timeout) {
         $scope.hasProgress = false;
         $scope.hasProject = false;
         $scope.hasFile = false;
@@ -14,7 +14,7 @@ angular.module("app").controller('MainCtrl', ['$scope', 'angularPDFViewerService
         $scope.viewer = pdf.Instance('viewer');
         $scope.files = [];
 
-        $scope.doActionOpenMenu = (file) -> {
+        $scope.doActionOpenMenu = function (file) {
             if (file.menuOpen) {
                 file.menuOpen = false;
                 return;
@@ -23,30 +23,30 @@ angular.module("app").controller('MainCtrl', ['$scope', 'angularPDFViewerService
             file.menuOpen = true;
         };
 
-        $scope.doActionAlterFile = (file) -> {
+        $scope.doActionAlterFile = function (file) {
             $scope.titleViewer = file.name;
             $scope.pdfFile = file.src;
             this.hasFile = true;
         };
 
-        $scope.zoomIn = () -> {
+        $scope.zoomIn = function () {
             $scope.viewer.zoomIn();
         };
 
-        $scope.zoomOut = () -> {
+        $scope.zoomOut = function () {
             $scope.viewer.zoomOut();
         };
 
-        $scope.scaleFit = () -> {
+        $scope.scaleFit = function () {
             $scope.viewer.scaleFit();
         };
 
-        $scope.onRotation = () -> {
+        $scope.onRotation = function () {
             $scope.viewer.onRotation();
         };
 
-        $scope.openProject = (event) -> {
-            let confirm = $mdDialog.confirm()
+        $scope.openProject = function (event) {
+            var confirm = $mdDialog.confirm()
                 .title('Projeto')
                 .textContent('Deseja abrir um novo projeto?')
                 .ariaLabel('Projeto')
@@ -54,21 +54,21 @@ angular.module("app").controller('MainCtrl', ['$scope', 'angularPDFViewerService
                 .ok('SIM')
                 .cancel('NÃO');
 
-            $mdDialog.show(confirm).then(() -> {
+            $mdDialog.show(confirm).then(function () {
                 $scope.modalUploadFiles();
             });
         };
 
-        $scope.removeProject = (event) -> {
-            let confirm = $mdDialog.confirm()
+        $scope.removeProject = function (event) {
+            var confirm = $mdDialog.confirm()
                 .title('Remover Projeto')
                 .textContent('Tem certeza que deseja remover o projeto atual?')
                 .ariaLabel('Remover Projeto')
                 .targetEvent(event)
                 .ok('Sim, tenho certeza!')
                 .cancel('Não, quero continuar no projeto atual');
-                
-            $mdDialog.show(confirm).then(() -> {
+
+            $mdDialog.show(confirm).then(function () {
                 $scope.fileMain = {};
                 $scope.titleViewer = '';
                 $scope.pdfFile = '';
@@ -76,11 +76,11 @@ angular.module("app").controller('MainCtrl', ['$scope', 'angularPDFViewerService
                 $scope.hasProject = false;
                 $scope.hasFile = false;
                 $scope.hasMainFile = false;
-                $scope.hasOthersFiles = false;    
+                $scope.hasOthersFiles = false;
             });
         };
 
-        $scope.modalUploadFiles = (event) -> {
+        $scope.modalUploadFiles = function (event) {
             $mdDialog.show({
                 controller: 'modalUploadFileCtrl',
                 templateUrl: 'views/modal/modalUploadFile.html',
@@ -89,7 +89,8 @@ angular.module("app").controller('MainCtrl', ['$scope', 'angularPDFViewerService
                 scope: $scope,
                 preserveScope: true
 
-            }).then(() -> {});
+            }).then(function () {
+            });
         };
 
     }

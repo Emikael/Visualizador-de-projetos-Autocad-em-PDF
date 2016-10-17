@@ -1,5 +1,5 @@
-angular.module("app").config(($mdThemingProvider) -> {
-    let customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
+angular.module("app").config(function ($mdThemingProvider) {
+    var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
         'contrastDefaultColor': 'light',
         'contrastDarkColors': ['50'],
         '50': 'ffffff'
