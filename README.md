@@ -18,16 +18,16 @@ $ npm start
 
 ## Criando executavel da aplicação
 
-##### Diretório
+#### Diretório
  * Diretório da aplicação
     
-##### Plataforma
+#### Plataforma
  * all
  * darwin 
  * linux
  * win32
      
-##### Arquitetura
+#### Arquitetura
  * all
  * ia32
  * x64
